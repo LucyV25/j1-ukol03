@@ -77,7 +77,6 @@ public class Pocitac {
         System.out.println("Pokyn pro zapnutí pc");
 //        System.err.println("nemuzes zapnout jiz zapnuty pc");
         return;
-
     }
     public void vypniSe(){
         System.out.println("Pokyn pro vypnutí pc");

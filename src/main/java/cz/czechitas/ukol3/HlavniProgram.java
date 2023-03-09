@@ -15,8 +15,8 @@ public class HlavniProgram {
         System.out.println("Program spuštěn.");
         Pocitac luckyPocitac;
         luckyPocitac = new Pocitac();
-//        System.out.println(luckyPocitac.toString());
-//        luckyPocitac.zapniSe();
+        System.out.println(luckyPocitac.toString());
+        luckyPocitac.zapniSe(null, null, null); // vypise chybu do konzole
 
         Procesor luckyProcesor = new Procesor();
         luckyProcesor.setRychlost(2_400_000_000L);

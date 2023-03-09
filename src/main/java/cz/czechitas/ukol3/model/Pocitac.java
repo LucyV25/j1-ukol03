@@ -1,5 +1,7 @@
 package cz.czechitas.ukol3.model;
 
+import static java.util.Objects.isNull;
+
 public class Pocitac {
     private Procesor procesor;
     private Pamet pamet;
@@ -10,6 +12,7 @@ public class Pocitac {
 
     private Pamet ram;
     private Disk pevnyDisk;
+    private long velikost;
     private boolean isJeZapnuty;
     public Procesor getProcesor() {
         return procesor;
@@ -60,40 +63,45 @@ public class Pocitac {
     }
 
 
-    public boolean jeZapnuty() {
-        if (jeZapnuty==true){
-            System.out.println("Pocitac je zapnutý");
-            return true;
-        }
-        else {
-            System.out.println("Počítač je vypnutý");
-            return false;
-        }
+public boolean jeZapnuty() {
+    if (jeZapnuty) {
+        System.out.println("Pocitac je zapnutý");
+        return true;
+    } else {
+        System.out.println("Počítač je vypnutý");
+        return false;
     }
-    public void zapniSe(Pamet pamet, Procesor procesor, Disk disk){
-        if(jeZapnuty=false){
-            if((pamet==null) || (procesor==null) || (disk==null)){
-                System.err.println("Paměť nemůže být prázdná.");
+}
+
+    public void zapniSe(Pamet pamet, Procesor procesor, Disk disk) {
+        if (!jeZapnuty) {
+            if (isNull(pamet) || isNull(procesor) || isNull(disk)) {
+                System.err.println("Paměť, procesor ani disk nesmí být prázdné.");
+            } else {
+                setJeZapnuty(true); // nebo jeZapnuty = true
             }
-        }
-           else {
+        } else {
             System.err.println("nemuzes zapnout jiz zapnuty pc");
-               return;
         }
-        return jeZapnuty==true;
-
-
     }
-    public void vypniSe(){
-        if(jeZapnuty=true){
-            return jeZapnuty==false;
-        }
-        else{
+
+    public void vypniSe() {
+        if (jeZapnuty) {
+            setJeZapnuty(false); // nebo jeZapnuty = false;
+        } else {
+//            System.err.println("Nemuzes vypnout vypnuty pc.");
             return;
         }
-
     }
 
+    public void vytvorSouborOVelikosti(long velikost){
+        if(jeZapnuty==true){
+
+        }
+    }
+    public void vymazSouboryOVelikosti(long velikost){
+
+    }
     public boolean isJeZapnuty() {
         return jeZapnuty;
     }

@@ -10,7 +10,7 @@ public class Pocitac {
 
     private Pamet ram;
     private Disk pevnyDisk;
-    private boolean zapniSe=true;
+    private boolean isJeZapnuty;
     public Procesor getProcesor() {
         return procesor;
     }
@@ -61,7 +61,7 @@ public class Pocitac {
 
 
     public boolean jeZapnuty() {
-        if (zapniSe==true){
+        if (jeZapnuty==true){
             System.out.println("Pocitac je zapnutý");
             return true;
         }
@@ -71,16 +71,35 @@ public class Pocitac {
         }
     }
     public void zapniSe(Pamet pamet, Procesor procesor, Disk disk){
+        if(jeZapnuty=false){
             if((pamet==null) || (procesor==null) || (disk==null)){
                 System.err.println("Paměť nemůže být prázdná.");
             }
-        System.out.println("Pokyn pro zapnutí pc");
-//        System.err.println("nemuzes zapnout jiz zapnuty pc");
-        return;
+        }
+           else {
+            System.err.println("nemuzes zapnout jiz zapnuty pc");
+               return;
+        }
+        return jeZapnuty==true;
+
+
     }
     public void vypniSe(){
-        System.out.println("Pokyn pro vypnutí pc");
-        return;
+        if(jeZapnuty=true){
+            return jeZapnuty==false;
+        }
+        else{
+            return;
+        }
+
+    }
+
+    public boolean isJeZapnuty() {
+        return jeZapnuty;
+    }
+
+    public void setJeZapnuty(boolean jeZapnuty) {
+        this.jeZapnuty = jeZapnuty;
     }
 
     @Override

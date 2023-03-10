@@ -1,22 +1,16 @@
 package cz.czechitas.ukol3.model;
 
-import javax.lang.model.element.ModuleElement;
-import java.util.concurrent.atomic.LongAdder;
-
-import static java.util.Objects.isNull;
-
 public class Pocitac {
     private Procesor procesor;
     private Pamet pamet;
-    private Disk disk;
 
     private boolean jeZapnuty;
     private Procesor cpu;
 
     private Pamet ram;
     private Disk pevnyDisk;
-    private long velikost;
     private boolean isJeZapnuty;
+
     public Procesor getProcesor() {
         return procesor;
     }
@@ -31,14 +25,6 @@ public class Pocitac {
 
     public void setPamet(Pamet pamet) {
         this.pamet = pamet;
-    }
-
-    public Disk getDisk() {
-        return disk;
-    }
-
-    public void setDisk(Disk disk) {
-        this.disk = disk;
     }
 
     public Procesor getCpu() {
@@ -66,19 +52,19 @@ public class Pocitac {
     }
 
 
-public boolean jeZapnuty() {
-    if (jeZapnuty) {
-        System.out.println("Pocitac je zapnutý");
-        return true;
-    } else {
-        System.out.println("Počítač je vypnutý");
-        return false;
+    public boolean jeZapnuty() {
+        if (jeZapnuty) {
+            System.out.println("Pocitac je zapnutý");
+            return true;
+        } else {
+            System.out.println("Počítač je vypnutý");
+            return false;
+        }
     }
-}
 
     public void zapniSe(Pamet pamet, Procesor procesor, Disk disk) {
         if (!jeZapnuty) {
-            if ((pamet==null) || (procesor==null) || (disk==null)) {
+            if ((pamet == null) || (procesor == null) || (disk == null)) {
                 System.err.println("Paměť, procesor ani disk nesmí být prázdné.");
             } else {
                 setJeZapnuty(true); // nebo jeZapnuty = true
@@ -92,26 +78,44 @@ public boolean jeZapnuty() {
         if (jeZapnuty) {
             setJeZapnuty(false); // nebo jeZapnuty = false;
         } else {
-//            System.err.println("Nemuzes vypnout vypnuty pc.");
-            return;
+            System.err.println("Nemuzes vypnout vypnuty pc.");
         }
     }
 
-    public void vytvorSouborOVelikosti(long velikost){
-        if(jeZapnuty==true){
-            long vyuziteMisto=disk.getVyuziteMisto();
-            long updateDisk=vyuziteMisto + velikost;
-            vyuziteMisto=updateDisk;
-            System.out.println("Zbývající místo na disku: "+vyuziteMisto);
-            return;
-        }
-        else {
+    public void vytvorSouborOVelikosti(long velikost) {
+        if (jeZapnuty) {
+            long vyuziteMisto = pevnyDisk.getVyuziteMisto();
+            long kapacita = pevnyDisk.getKapacita();
+            long zbyvajiciMisto=kapacita-vyuziteMisto-velikost;
+            if ((vyuziteMisto + velikost) > kapacita) {
+                System.err.println("Kapacita disku nedostacuje.");
+            } else {
+                pevnyDisk.setVyuziteMisto(vyuziteMisto + velikost);
+                System.out.println("Zbývající místo na disku: " + (zbyvajiciMisto));
+            }
+
+        } else {
             System.err.println("Pc je vypnutý");
         }
     }
-    public void vymazSouboryOVelikosti(long velikost){
 
+    public void vymazSouboryOVelikosti(long velikost) {
+        if (jeZapnuty) {
+            long vyuziteMisto = pevnyDisk.getVyuziteMisto();
+            long kapacita = pevnyDisk.getKapacita();
+            long zbyvajiciMisto=kapacita-vyuziteMisto+velikost;
+            if (velikost < vyuziteMisto) {
+                pevnyDisk.setVyuziteMisto(vyuziteMisto + velikost);
+            } else {
+                pevnyDisk.setVyuziteMisto(0);
+            }
+
+            System.out.println("Zbývající místo na disku: " + (zbyvajiciMisto));
+        } else {
+            System.err.println("Pc je vypnutý");
+        }
     }
+
     public boolean isJeZapnuty() {
         return jeZapnuty;
     }
@@ -125,7 +129,7 @@ public boolean jeZapnuty() {
         return "Pocitac{" +
                 "procesor=" + procesor +
                 ", pamet=" + pamet +
-                ", disk=" + disk +
+                ", disk=" + pevnyDisk +
                 ", cpu=" + cpu +
                 ", ram=" + ram +
                 ", pevnyDisk=" + pevnyDisk +

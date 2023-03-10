@@ -46,7 +46,9 @@ public class HlavniProgram {
 
         luckyPocitac.zapniSe(luckyPamet, luckyProcesor, luckyDisk);
         luckyPocitac.jeZapnuty();
-//        luckyPocitac.vytvorSouborOVelikosti(2_000_000_000L);
+        luckyPocitac.vytvorSouborOVelikosti(160_000_000_000L);
+        luckyPocitac.vytvorSouborOVelikosti(1_160_000_000_000L);
+        luckyPocitac.vymazSouboryOVelikosti(7_000_000_000L);
     }
 
 }

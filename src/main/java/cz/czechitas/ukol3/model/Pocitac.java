@@ -99,10 +99,6 @@ public boolean jeZapnuty() {
 
     public void vytvorSouborOVelikosti(long velikost){
         if(jeZapnuty==true){
-//            Disk disk=new Disk();
-//            long vyuziteMisto=disk.getVyuziteMisto();
-//            LongAdder num = new LongAdder();
-//            num.add(vyuziteMisto+velikost);
             long vyuziteMisto=disk.getVyuziteMisto();
             long updateDisk=vyuziteMisto + velikost;
             vyuziteMisto=updateDisk;

@@ -1,5 +1,8 @@
 package cz.czechitas.ukol3.model;
 
+import javax.lang.model.element.ModuleElement;
+import java.util.concurrent.atomic.LongAdder;
+
 import static java.util.Objects.isNull;
 
 public class Pocitac {
@@ -75,7 +78,7 @@ public boolean jeZapnuty() {
 
     public void zapniSe(Pamet pamet, Procesor procesor, Disk disk) {
         if (!jeZapnuty) {
-            if (isNull(pamet) || isNull(procesor) || isNull(disk)) {
+            if ((pamet==null) || (procesor==null) || (disk==null)) {
                 System.err.println("Paměť, procesor ani disk nesmí být prázdné.");
             } else {
                 setJeZapnuty(true); // nebo jeZapnuty = true
@@ -96,7 +99,18 @@ public boolean jeZapnuty() {
 
     public void vytvorSouborOVelikosti(long velikost){
         if(jeZapnuty==true){
-
+//            Disk disk=new Disk();
+//            long vyuziteMisto=disk.getVyuziteMisto();
+//            LongAdder num = new LongAdder();
+//            num.add(vyuziteMisto+velikost);
+            long vyuziteMisto=disk.getVyuziteMisto();
+            long updateDisk=vyuziteMisto + velikost;
+            vyuziteMisto=updateDisk;
+            System.out.println("Zbývající místo na disku: "+vyuziteMisto);
+            return;
+        }
+        else {
+            System.err.println("Pc je vypnutý");
         }
     }
     public void vymazSouboryOVelikosti(long velikost){
